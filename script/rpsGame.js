@@ -53,70 +53,121 @@ function userPlay() {
 }
 
 /*This function will make a single round of the game. It takes computer and user's selections, evaluate according to the rules
-  and declares the winner.
+  and return the updated scores.
   I could use 'switch' structure here aswell, but intentionally chose 'if' to practice nesting these, indenting, brackets etc.
 */
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === 'rock') {
         if (computerSelection === 'rock') {
-            return 'It\'s a tie! Rock leans on rock.';    
+            console.log('It\'s a tie! Rock leans on rock.');
         } else if (computerSelection === 'paper') {
-            return 'You lose! Paper covers rock.';            
+            console.log('You lose! Paper covers rock.');            
+            return 'computer';
         } else if (computerSelection === 'scissors') {
-            return 'You win! As it always has, rock crushes scissors.';
+            console.log('You win! As it always has, rock crushes scissors.');
+            return 'user';
         } else if (computerSelection === 'lizard') {
-            return 'You win! Rock crushes lizard.';            
+            console.log('You win! Rock crushes lizard.');
+            return 'user';
         } else if (computerSelection === 'spock') {
-            return 'You lose! Spock vaporizes rock.';
+            console.log('You lose! Spock vaporizes rock.');
+            return 'computer';
         }        
     } else if (playerSelection === 'paper') {
         if (computerSelection === 'rock') {
-            return 'You win! Paper covers rock.';    
+            console.log('You win! Paper covers rock.');
+            return 'user' 
         } else if (computerSelection === 'paper') {
-            return 'It\'s a tie! Paper lies on paper.';                    
+            console.log('It\'s a tie! Paper lies on paper.'); 
         } else if (computerSelection === 'scissors') {
-            return 'You lose! Scissors cuts paper';
+            console.log('You lose! Scissors cuts paper');
+            return 'computer';
         } else if (computerSelection === 'lizard') {
-            return 'You lose! Lizard eats paper.';            
+            console.log('You lose! Lizard eats paper.');
+            return 'computer';
         } else if (computerSelection === 'spock') {
-            return 'You win! Paper disproves Spock.';
+            console.log('You win! Paper disproves Spock.');
+            return 'user'
         }
     } else if (playerSelection === 'scissors') {
         if (computerSelection === 'rock') {
-            return 'You lose! As it always has, rock crushes scissors.';    
+            console.log('You lose! As it always has, rock crushes scissors.');
+            return 'computer';
         } else if (computerSelection === 'paper') {
-            return 'You win! Scissors cuts paper.';                    
+            console.log('You win! Scissors cuts paper.');
+            return 'user'
         } else if (computerSelection === 'scissors') {
-            return 'It\'s a tie! Scissors on both hands.';
+            console.log('It\'s a tie! Scissors on both hands.');
         } else if (computerSelection === 'lizard') {
-            return 'You win! Scissors decapitates Lizard.';            
+            console.log('You win! Scissors decapitates Lizard.');
+            return 'user'
         } else if (computerSelection === 'spock') {
-            return 'You lose! Spock smashes scissors.';
+            console.log('You lose! Spock smashes scissors.');
+            return 'computer';
         }
     } else if (playerSelection === 'lizard') {
         if (computerSelection === 'rock') {
-            return 'You lose! Rock crushes lizard.';    
+            console.log('You lose! Rock crushes lizard.');
+            return 'computer';
         } else if (computerSelection === 'paper') {
-            return 'You win! Lizard eats paper.';                    
+            console.log('You win! Lizard eats paper.');
+            return 'user'
         } else if (computerSelection === 'scissors') {
-            return 'You lose! Scissors decapitates Lizard.';
+            console.log('You lose! Scissors decapitates Lizard.');
+            return 'computer';
         } else if (computerSelection === 'lizard') {
-            return 'It\'s a tie! Lizard stares at lizard.';
+            console.log('It\'s a tie! Lizard stares at lizard.');
         } else if (computerSelection === 'spock') {
-            return 'You win! Lizard poisons Spock.';
+            console.log('You win! Lizard poisons Spock.');
+            return 'user'
         }
     } else if (playerSelection === 'spock') {
         if (computerSelection === 'rock') {
-            return 'You win! Spock vaporizes rock.';    
+            console.log('You win! Spock vaporizes rock.');
+            return 'user'
         } else if (computerSelection === 'paper') {
-            return 'You lose! Paper disproves Spock.';                    
+            console.log('You lose! Paper disproves Spock.');
+            return 'computer';
         } else if (computerSelection === 'scissors') {
-            return 'You win! Spock smashes scissors.';
+            console.log('You win! Spock smashes scissors.');
+            return 'user'
         } else if (computerSelection === 'lizard') {
-            return 'You lose! Lizard poisons Spock.';
+            console.log('You lose! Lizard poisons Spock.');
+            return 'computer';
         } else if (computerSelection === 'spock') {
-            return 'It\'s a tie! Spock can\'t beat Spock.';
+            console.log('It\'s a tie! Spock can\'t beat Spock.');
         }
+    }
+}
+
+//This function is the main game, which is done through a best of 5 rounds.
+//We loop the round function 5 times, printing the actual scores and declare the winner by the end.
+
+function game() {
+    let playerScore = 0, computerScore = 0;
+    let roundResult = "";
+    for (let i = 1; i <= 5; i++) {
+        roundResult = playRound(userPlay(), computerPlay());
+        if (roundResult === 'user') {
+            playerScore += 1;
+            if (playerScore === 3) {
+                break;
+            }
+        } else if (roundResult === 'computer'){
+            computerScore += 1;
+            if (computerScore === 3){
+                break;
+            }
+        } 
+        console.log(`Your score is ${playerScore} and computer score is ${computerScore}`);
+    }
+    console.log(`Your final score is ${playerScore} and computer\'s final score is ${computerScore}`);
+    if (playerScore > computerScore){
+        console.log('Congratulations, the last slice of pizza is yours!');
+    } else if (playerScore < computerScore) {
+        console.log('Aww, the computer got the last slice of pizza and it can\'t even eat that...');
+    } else {
+        console.log('Cmon, play again, there\'s still one slice of pizza!')    
     }
 }
