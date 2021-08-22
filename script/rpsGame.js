@@ -44,20 +44,36 @@ function computerPlay() {
     return computerChoice;
 }
 
-//This function prompts for user input its choice, returning it case-insesitive, so user can type any form
-//and we can evaluate it without headaches.
+/*This function prompts for user input its choice, returning it case-insesitive, so the user can type in any form
+  and we can evaluate it without headaches.
+  First, we evaluate if the user pressed 'Cancel' (=== null), so we return a value for finish the game.
+  Then, we evaluate if the user put a valid value. If yes, return it; if not, just recall the function.
+  */
 
 function userPlay() {
     let userChoice = prompt('What\'s your big move between Rock, Paper, Scissors, Lizard and Spock?');
-    return userChoice.toLowerCase();
+    console.log(userChoice);
+    if (userChoice === null) {
+        return 'exitGame';        
+    } else if (userChoice.toLowerCase() === 'rock' || userChoice.toLowerCase() === 'paper' || userChoice.toLowerCase() === 'scissors'
+    || userChoice.toLowerCase() === 'lizard' || userChoice.toLowerCase() === 'spock') {
+        return userChoice.toLowerCase();
+    } else {
+        userPlay();
+    }
+    
 }
 
 /*This function will make a single round of the game. It takes computer and user's selections, evaluate according to the rules
-  and return the updated scores.
+  and return the round winner.
+  The only case we don't return any value is the tie case, because scores won't change.
   I could use 'switch' structure here aswell, but intentionally chose 'if' to practice nesting these, indenting, brackets etc.
 */
 
 function playRound(playerSelection, computerSelection) {
+    if (playerSelection === 'exitGame') {
+        return 'exitGame';
+    }
     if (playerSelection === 'rock') {
         if (computerSelection === 'rock') {
             console.log('It\'s a tie! Rock leans on rock.');
@@ -141,8 +157,13 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-//This function is the main game, which is done through a best of 5 rounds.
-//We loop the round function 5 times, printing the actual scores and declare the winner by the end.
+/*This function is the main game, which is done through a best of 5 rounds.
+  We loop the round function 5 times, printing the actual scores and declare the winner by the end.
+  The scores are updated according to roundResult variable ('computer' or 'user' wins the round, 'exitGame' we break out of the loop,
+  i.e., we finish the game).
+  Each time a score is updated, we test if it's equal to 3, so we can finish the game before completing
+  all 5 rounds.
+*/
 
 function game() {
     let playerScore = 0, computerScore = 0;
@@ -151,16 +172,19 @@ function game() {
         roundResult = playRound(userPlay(), computerPlay());
         if (roundResult === 'user') {
             playerScore += 1;
+            console.log(`Your score is ${playerScore} and computer score is ${computerScore}`);
             if (playerScore === 3) {
                 break;
             }
         } else if (roundResult === 'computer'){
             computerScore += 1;
+            console.log(`Your score is ${playerScore} and computer score is ${computerScore}`);
             if (computerScore === 3){
                 break;
             }
-        } 
-        console.log(`Your score is ${playerScore} and computer score is ${computerScore}`);
+        } else if (roundResult === 'exitGame') {
+            break;
+        }        
     }
     console.log(`Your final score is ${playerScore} and computer\'s final score is ${computerScore}`);
     if (playerScore > computerScore){
@@ -168,6 +192,6 @@ function game() {
     } else if (playerScore < computerScore) {
         console.log('Aww, the computer got the last slice of pizza and it can\'t even eat that...');
     } else {
-        console.log('Cmon, play again, there\'s still one slice of pizza!')    
+        console.log('C\'mon, you should play, there\'s still one slice of pizza left!')    
     }
 }
