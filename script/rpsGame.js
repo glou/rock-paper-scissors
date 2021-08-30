@@ -1,11 +1,9 @@
 /* Simple implementation of rock-paper-scissors game with JavaScript.
-   At first, the game will be played through browser's console, with GUI implementation in future.
-   Computer's choice is made randomly. User's choice is get from prompt() function.
-   A complete game is a Bo5.
-   Ok, I just had an idea. I'm going to implement The Big Bang Theory's version:
-   Rock Paper Scissors Lizard Spock :D
+   I implemented The Big Bang Theory's (TV show) version: Rock Paper Scissors Lizard Spock :D
    The additional rules are: Rock crushes Lizard, but is vaporized by Spock; Paper disproves Spock, but is eaten by Lizard;
-   Scissors decapite Lizard, but are smashed by Spock;
+   Scissors decapite Lizard, but are smashed by Spock.
+   Computer's choice is made randomly. User makes the choice by clicking the corresponding button.
+   Wins whoever reaches 5 points first.   
 */
 
 //This function will make the computer's choice using Math.random() and return it.
@@ -42,17 +40,13 @@ function computerPlay() {
     return computerChoice;
 }
 
-/*This function will make a single round of the game. It takes computer and user's selections, evaluate according to the rules
-  and return the round winner.
-  The only case we don't return any value is the tie case, because scores won't change.
-  I could use 'switch' structure here aswell, but intentionally chose 'if' to practice nesting these, indenting, brackets etc.
-*/
-
-
 const roundPhrase = document.getElementById('roundPhrase');
 const scores = document.getElementById('scores');
 const finalMsg = document.getElementById('finalMsg');    
 let playerScore = 0, computerScore = 0;
+
+
+/* This function reset variables and the information for the user when a new game starts */
 
 function updInfo() {
     if (playerScore === 5 || computerScore === 5){
@@ -64,8 +58,12 @@ function updInfo() {
     }
 }
 
+/*This is the main function of the game. It gets computer and user choices, evaluate and
+  update the scores and the information paragraphs for the user.
+*/
+
 function playRound() {
-    updInfo();
+    updInfo(); // We run this at the very beginning as a check if it should start a new game.
     let computerSelection = computerPlay();
     let playerSelection = '';
     switch (this.getAttribute('id')) {
@@ -171,14 +169,7 @@ function playRound() {
     if (computerScore === 5) finalMsg.textContent = 'Aww, the computer got the last slice of pizza and it can\'t even eat that...';    
 }
 
+
+// Event handler for the buttons with the user's choices
 const userMoves = document.querySelectorAll('.btnChoices');
 userMoves.forEach(button => button.addEventListener('click', playRound));
-
-
-/*This function is the main game, which is done through a best of 5 rounds.
-  We loop the round function 5 times, printing the actual scores and declare the winner by the end.
-  The scores are updated according to roundResult variable ('computer' or 'user' wins the round, 'exitGame' we break out of the loop,
-  i.e., we finish the game).
-  Each time a score is updated, we test if it's equal to 3, so we can finish the game before completing
-  all 5 rounds.
-*/

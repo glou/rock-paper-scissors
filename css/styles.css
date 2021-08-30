@@ -68,7 +68,7 @@ body {
 
 /* Styles for title and instructions */
 .instructions {
- width: 75vw;
+ width: 65vw;
  margin: 1.5vh auto;
  padding-bottom: 3vh;
  border-radius: 10px;
@@ -92,8 +92,9 @@ h3 {
 .btnContainer {
  display: grid;
  width: 50vw;
- height: 50vh;
- margin: auto auto;
+ height: 60vh;
+ margin: auto;
+ padding: 5px;
  column-gap: 10px;
  row-gap: 15px;
  grid-template-areas:
@@ -107,9 +108,15 @@ h3 {
  width: 15vh;
  height: 15vh;
  margin: 0 auto;
- border: 1px solid #fff;
+ border: 0;
  border-radius: 50%;
  font-size: 3vh;
+ background-color: rgba(153, 150, 0, 0.596);
+ color: #fff;
+}
+
+.btnChoices:hover {
+ box-shadow: 0px 0px 10px 5px #00000063;
 }
 
 #btnRock {
@@ -134,12 +141,13 @@ h3 {
  grid-column: 1 / 3;
 }
 
+/* Styles for the bottom messages */
 
 .messages {
  display: flex;
  flex-direction: column;
  position: absolute;
- bottom: 10vh;
+ bottom: 5vh;
  width: 50vw;
  left: 25vw;
  border-radius: 10px;
