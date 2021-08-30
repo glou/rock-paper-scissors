@@ -2,10 +2,8 @@
    At first, the game will be played through browser's console, with GUI implementation in future.
    Computer's choice is made randomly. User's choice is get from prompt() function.
    A complete game is a Bo5.
-
    Ok, I just had an idea. I'm going to implement The Big Bang Theory's version:
    Rock Paper Scissors Lizard Spock :D
-
    The additional rules are: Rock crushes Lizard, but is vaporized by Spock; Paper disproves Spock, but is eaten by Lizard;
    Scissors decapite Lizard, but are smashed by Spock;
 */
@@ -44,118 +42,122 @@ function computerPlay() {
     return computerChoice;
 }
 
-/*This function prompts for user input its choice, returning it case-insesitive, so the user can type in any form
-  and we can evaluate it without headaches.
-  First, we evaluate if the user pressed 'Cancel' (=== null), so we return a value for finish the game.
-  Then, we evaluate if the user put a valid value. If yes, return it; if not, just recall the function.
-  */
-
-function userPlay() {
-    let userChoice = prompt('What\'s your big move between Rock, Paper, Scissors, Lizard and Spock?');
-    console.log(userChoice);
-    if (userChoice === null) {
-        return 'exitGame';        
-    } else if (userChoice.toLowerCase() === 'rock' || userChoice.toLowerCase() === 'paper' || userChoice.toLowerCase() === 'scissors'
-    || userChoice.toLowerCase() === 'lizard' || userChoice.toLowerCase() === 'spock') {
-        return userChoice.toLowerCase();
-    } else {
-        userPlay();
-    }
-    
-}
-
 /*This function will make a single round of the game. It takes computer and user's selections, evaluate according to the rules
   and return the round winner.
   The only case we don't return any value is the tie case, because scores won't change.
   I could use 'switch' structure here aswell, but intentionally chose 'if' to practice nesting these, indenting, brackets etc.
 */
 
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection === 'exitGame') {
-        return 'exitGame';
+function playRound() {
+    const roundPhrase = document.getElementById('roundPhrase');
+    const scores = document.getElementById('scores');
+    const finalMsg = document.getElementById('finalMsg');
+    let playerScore = 0, computerScore = 0;
+    let computerSelection = computerPlay();
+    let playerSelection = '';
+    switch (this.getAttribute('id')) {
+	case 'btnRock':
+		playerSelection = 'rock';
+		break;
+	case 'btnPaper':
+		playerSelection = 'paper';
+		break;
+	case 'btnScissors':
+		playerSelection = 'scissors';
+		break;
+	case 'btnLizard':
+		playerSelection = 'lizard';
+		break;
+	case 'btnSpock':
+		playerSelection = 'spock';
+		break;
     }
     if (playerSelection === 'rock') {
         if (computerSelection === 'rock') {
-            console.log('It\'s a tie! Rock leans on rock.');
+            roundPhrase.textContent = 'It\'s a tie! Rock leans on rock.';
         } else if (computerSelection === 'paper') {
-            console.log('You lose! Paper covers rock.');            
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Paper covers rock.';
+	    computerScore += 1;	
         } else if (computerSelection === 'scissors') {
-            console.log('You win! As it always has, rock crushes scissors.');
-            return 'user';
+            roundPhrase.textContent = 'You win! As it always has, rock crushes scissors.';
+            playerScore += 1;
         } else if (computerSelection === 'lizard') {
-            console.log('You win! Rock crushes lizard.');
-            return 'user';
+            roundPhrase.textContent = 'You win! Rock crushes lizard.';
+            playerScore += 1;
         } else if (computerSelection === 'spock') {
-            console.log('You lose! Spock vaporizes rock.');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Spock vaporizes rock.';
+	    computerScore += 1;
         }        
     } else if (playerSelection === 'paper') {
         if (computerSelection === 'rock') {
-            console.log('You win! Paper covers rock.');
-            return 'user' 
+            roundPhrase.textContent = 'You win! Paper covers rock.';
+            playerScore += 1;
         } else if (computerSelection === 'paper') {
-            console.log('It\'s a tie! Paper lies on paper.'); 
+            roundPhrase.textContent = 'It\'s a tie! Paper lies on paper.';
         } else if (computerSelection === 'scissors') {
-            console.log('You lose! Scissors cuts paper');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Scissors cuts paper';
+	    computerScore += 1;
         } else if (computerSelection === 'lizard') {
-            console.log('You lose! Lizard eats paper.');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Lizard eats paper.';
+	    computerScore += 1;
         } else if (computerSelection === 'spock') {
-            console.log('You win! Paper disproves Spock.');
-            return 'user'
+            roundPhrase.textContent = 'You win! Paper disproves Spock.';
+            playerScore += 1;
         }
     } else if (playerSelection === 'scissors') {
         if (computerSelection === 'rock') {
-            console.log('You lose! As it always has, rock crushes scissors.');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! As it always has, rock crushes scissors.';
+	    computerScore += 1;
         } else if (computerSelection === 'paper') {
-            console.log('You win! Scissors cuts paper.');
-            return 'user'
+            roundPhrase.textContent = 'You win! Scissors cuts paper.';
+            playerScore += 1;
         } else if (computerSelection === 'scissors') {
-            console.log('It\'s a tie! Scissors on both hands.');
+            roundPhrase.textContent = 'It\'s a tie! Scissors on both hands.';
         } else if (computerSelection === 'lizard') {
-            console.log('You win! Scissors decapitates Lizard.');
-            return 'user'
+            roundPhrase.textContent = 'You win! Scissors decapitates Lizard.';
+            playerScore += 1;
         } else if (computerSelection === 'spock') {
-            console.log('You lose! Spock smashes scissors.');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Spock smashes scissors.';
+	    computerScore += 1;
         }
     } else if (playerSelection === 'lizard') {
         if (computerSelection === 'rock') {
-            console.log('You lose! Rock crushes lizard.');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Rock crushes lizard.';
+	    computerScore += 1;
         } else if (computerSelection === 'paper') {
-            console.log('You win! Lizard eats paper.');
-            return 'user'
+            roundPhrase.textContent = 'You win! Lizard eats paper.';
+            playerScore += 1;
         } else if (computerSelection === 'scissors') {
-            console.log('You lose! Scissors decapitates Lizard.');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Scissors decapitates Lizard.';
+	    computerScore += 1;
         } else if (computerSelection === 'lizard') {
-            console.log('It\'s a tie! Lizard stares at lizard.');
+            roundPhrase.textContent = 'It\'s a tie! Lizard stares at lizard.';
         } else if (computerSelection === 'spock') {
-            console.log('You win! Lizard poisons Spock.');
-            return 'user'
+            roundPhrase.textContent = 'You win! Lizard poisons Spock.';
+            playerScore += 1;
         }
     } else if (playerSelection === 'spock') {
         if (computerSelection === 'rock') {
-            console.log('You win! Spock vaporizes rock.');
-            return 'user'
+            roundPhrase.textContent = 'You win! Spock vaporizes rock.';
+            playerScore += 1;
         } else if (computerSelection === 'paper') {
-            console.log('You lose! Paper disproves Spock.');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Paper disproves Spock.';
+	    computerScore += 1;
         } else if (computerSelection === 'scissors') {
-            console.log('You win! Spock smashes scissors.');
-            return 'user'
+            roundPhrase.textContent = 'You win! Spock smashes scissors.';
+            playerScore += 1;
         } else if (computerSelection === 'lizard') {
-            console.log('You lose! Lizard poisons Spock.');
-            return 'computer';
+            roundPhrase.textContent = 'You lose! Lizard poisons Spock.';
+	    computerScore += 1;
         } else if (computerSelection === 'spock') {
-            console.log('It\'s a tie! Spock can\'t beat Spock.');
+            roundPhrase.textContent = 'It\'s a tie! Spock can\'t beat Spock.';
         }
     }
 }
+
+const userMoves = document.querySelectorAll('.btnChoices');
+userMoves.forEach(button => button.addEventListener('click', playRound));
+
 
 /*This function is the main game, which is done through a best of 5 rounds.
   We loop the round function 5 times, printing the actual scores and declare the winner by the end.
@@ -166,7 +168,7 @@ function playRound(playerSelection, computerSelection) {
 */
 
 function game() {
-    let playerScore = 0, computerScore = 0;
+    
     let roundResult = "";
     for (let i = 1; i <= 5; i++) {
         roundResult = playRound(userPlay(), computerPlay());
