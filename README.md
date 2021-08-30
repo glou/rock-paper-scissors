@@ -5,6 +5,13 @@ Second project of the  curriculum, after going through JavaScript basics.
 
 Started creating the repository and writing this README on August, 21, 2021.
 
+- Update on August, 30, 2021:
+  I went through the lesson on DOM manipulation (in TOP's context) and we're assigned to implement
+  a basic GUI for the "rock-paper-scissors" project.
+  I started doing it in another computer (not my own), so the creation of this branch, plus the big
+  update to the files, were not ideal in workflow terms.
+  From now on, I'll be doing smaller commits and pushes.
+
 - Update on August, 22, 2021:
   First, I had the idea of implementing The Big Bang Theory TV show version of the game, adding 
   Lizard and Spock as choices too.
