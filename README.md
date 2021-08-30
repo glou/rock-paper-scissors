@@ -5,6 +5,13 @@ Second project of the  curriculum, after going through JavaScript basics.
 
 Started creating the repository and writing this README on August, 21, 2021.
 
+- Update on August, 30, 2021 (2):
+  Finished refactoring the script and some styles for the GUI, the game is done.
+  It's not beatiful, but it's functional. I wondered about making it prettier before
+  moving on, but I'm worried to spend too much time doing it (I'm not a designer),
+  so I rather keep going with TOP.
+  Maybe someday I come back and try to redesign the UI.
+
 - Update on August, 30, 2021:
   I went through the lesson on DOM manipulation (in TOP's context) and we're assigned to implement
   a basic GUI for the "rock-paper-scissors" project.
